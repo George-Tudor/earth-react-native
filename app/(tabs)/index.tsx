@@ -4,6 +4,9 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { COUNTRIES } from "@/app/constants/countries";
+import { flags } from "@/app/constants/countries";
+import {index} from "@zxing/text-encoding/es2015/encoding/indexes";
 
 export default function HomeScreen() {
   return (
@@ -11,11 +14,20 @@ export default function HomeScreen() {
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
       headerImage={
         <Image
-          source={require('@/assets/images/partial-react-logo.png')}
+          source={require('@/assets/images/earth.png')}
           style={styles.reactLogo}
         />
       }>
       <ThemedView style={styles.titleContainer}>
+          {COUNTRIES.map((country, index) => (
+              <ThemedView key={index} style={styles.countryItem}>
+                <Image
+                    source={flags[country]}
+                    style={styles.flag}
+                />
+                <ThemedText>{country}</ThemedText>
+              </ThemedView>
+        ))}
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
       </ThemedView>
@@ -50,19 +62,30 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   titleContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     gap: 8,
+  },
+  countryItem: {
+        alignItems: 'center',  // Center the text and image vertically
+        marginBottom: 8,
+  },
+  flag: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginBottom: 10,
+        height: 100,
+        width: 200
   },
   stepContainer: {
     gap: 8,
     marginBottom: 8,
   },
   reactLogo: {
-    height: 178,
-    width: 290,
+    height: 200,
+    width: 312,
     bottom: 0,
     left: 0,
-    position: 'absolute',
+    position: "absolute"
   },
 });
